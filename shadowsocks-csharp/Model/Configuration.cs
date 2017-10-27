@@ -4,6 +4,7 @@ using System.IO;
 
 using Shadowsocks.Controller;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace Shadowsocks.Model
 {
@@ -73,7 +74,7 @@ namespace Shadowsocks.Model
                     config.hotkey = new HotkeyConfig();
 
                 config.proxy.CheckConfig();
-
+                config.freshServerIP();
                 return config;
             }
             catch (Exception e)
@@ -94,6 +95,20 @@ namespace Shadowsocks.Model
                     proxy = new ProxyConfig(),
                     hotkey = new HotkeyConfig()
                 };
+            }
+        }
+        public void freshServerIP() {
+            if (configs.Count > 0) {
+                foreach(Server s in configs) {
+                    if (s.freshState==0 && s.host.Length > 0)
+                    {
+                        IPHostEntry hostInfo = Dns.GetHostByName(s.host);
+                        s.server = hostInfo.AddressList.GetValue(0).ToString();
+                    }
+                    else if(s.freshState==1) {
+                        s.server = s.host;
+                    }
+                }
             }
         }
 

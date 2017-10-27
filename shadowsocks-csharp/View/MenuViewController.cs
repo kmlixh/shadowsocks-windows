@@ -247,9 +247,10 @@ namespace Shadowsocks.View
 
         private MenuItem CreateMenuItem(string text, EventHandler click)
         {
-            return new MenuItem(I18N.GetString(text), click);
+            MenuItem item= new MenuItem(I18N.GetString(text), click);
+            return item;
         }
-
+        
         private MenuItem CreateMenuGroup(string text, MenuItem[] items)
         {
             return new MenuItem(I18N.GetString(text), items);
@@ -269,7 +270,6 @@ namespace Shadowsocks.View
                     CreateMenuItem("Statistics Config...", StatisticsConfigItem_Click),
                     new MenuItem("-"),
                     CreateMenuItem("Share Server Config...", new EventHandler(this.QRCodeItem_Click)),
-                    CreateMenuItem("Scan QRCode from Screen...", new EventHandler(this.ScanQRCodeItem_Click)),
                     CreateMenuItem("Import URL from Clipboard...", new EventHandler(this.ImportURLItem_Click))
                 }),
                 CreateMenuGroup("PAC ", new MenuItem[] {
@@ -288,8 +288,9 @@ namespace Shadowsocks.View
                 this.AutoStartupItem = CreateMenuItem("Start on Boot", new EventHandler(this.AutoStartupItem_Click)),
                 this.ShareOverLANItem = CreateMenuItem("Allow Clients from LAN", new EventHandler(this.ShareOverLANItem_Click)),
                 new MenuItem("-"),
-                this.hotKeyItem = CreateMenuItem("Edit Hotkeys...", new EventHandler(this.hotKeyItem_Click)),
+                CreateMenuItem("Scan QRCode from Screen...", new EventHandler(this.ScanQRCodeItem_Click)),
                 CreateMenuGroup("Help", new MenuItem[] {
+                    this.hotKeyItem = CreateMenuItem("Edit Hotkeys...", new EventHandler(this.hotKeyItem_Click)),
                     CreateMenuItem("Show Logs...", new EventHandler(this.ShowLogItem_Click)),
                     this.VerboseLoggingToggleItem = CreateMenuItem( "Verbose Logging", new EventHandler(this.VerboseLoggingToggleItem_Click) ),
                     CreateMenuGroup("Updates...", new MenuItem[] {

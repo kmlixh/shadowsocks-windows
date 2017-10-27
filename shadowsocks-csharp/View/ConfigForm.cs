@@ -99,6 +99,8 @@ namespace Shadowsocks.View
                 server.plugin = PluginTextBox.Text;
                 server.plugin_opts = PluginOptionsTextBox.Text;
                 server.remarks = RemarksTextBox.Text;
+                server.host = hostTbx.Text;
+                server.freshState = freshCbx.SelectedIndex;
                 if (!int.TryParse(TimeoutTextBox.Text, out server.timeout))
                 {
                     MessageBox.Show(I18N.GetString("Illegal timeout format"));
@@ -135,6 +137,8 @@ namespace Shadowsocks.View
                 PluginOptionsTextBox.Text = server.plugin_opts;
                 RemarksTextBox.Text = server.remarks;
                 TimeoutTextBox.Text = server.timeout.ToString();
+                freshCbx.SelectedIndex = server.freshState;
+                hostTbx.Text = server.host;
             }
         }
 
